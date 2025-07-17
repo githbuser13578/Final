@@ -1,0 +1,61 @@
+import zipfile
+
+import os
+
+
+
+# Define the file path and zip output path
+
+yaml_filename = "render.yaml"
+
+zip_filename = "/mnt/data/render_config.zip"
+
+
+
+# Create a simple render.yaml content suitable for a Python web app using Flask or similar
+
+render_yaml_content = """
+
+services:
+
+  - type: web
+
+    name: voice-chat-ai
+
+    env: python
+
+    plan: free
+
+    buildCommand: "pip install -r requirements.txt"
+
+    startCommand: "python app.py"
+
+    autoDeploy: true
+
+"""
+
+
+
+# Write the content to a file
+
+with open(yaml_filename, "w") as f:
+
+    f.write(render_yaml_content)
+
+
+
+# Zip the file
+
+with zipfile.ZipFile(zip_filename, 'w') as zipf:
+
+    zipf.write(yaml_filename)
+
+
+
+# Clean up the raw yaml file after zipping
+
+os.remove(yaml_filename)
+
+
+
+zip_filename
